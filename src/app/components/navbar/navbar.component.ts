@@ -153,7 +153,11 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
-
+  checkIfLoggedIn() {
+    if (this.authService.getToken()) {
+      return true;
+    }
+  }
   logOut() {
     this.authService.logout();
     this.router.navigateByUrl('/login');

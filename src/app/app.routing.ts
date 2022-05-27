@@ -9,14 +9,13 @@ import {AuthGuard} from "./services/AuthGuard";
 
 const routes: Routes =[
   {
-    path: 'dashboard',
+    path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
