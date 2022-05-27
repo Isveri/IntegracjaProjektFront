@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import {StatisticsService} from "../services/statistics.service";
+import {AlertService} from "../services/alert.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -57,7 +59,7 @@ export class DashboardComponent implements OnInit {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
   }
-  constructor() { }
+  constructor(private statisticsService:StatisticsService,private alertService:AlertService) { }
 
   ngOnInit() {
     this.chartColor = "#FFFFFF";
@@ -411,5 +413,16 @@ export class DashboardComponent implements OnInit {
       }
 
     this.lineChartGradientsNumbersType = 'bar';
+  }
+
+  downloadXML(){
+    this.statisticsService.downloadXMLFile().subscribe(()=>{
+      this.alertService.success("Ur file is downloading")
+    },error => this.alertService.error("Error while downloading file"));
+  }
+  downloadJSON(){
+    this.statisticsService.downloadJsonFile().subscribe((resultBlob: Blob)=>{
+      this.alertService.success("Ur file is downloading")
+    },error => this.alertService.error("Error while downloading file"));
   }
 }

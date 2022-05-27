@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 
-@Component({
+@Component({    //TODO można poprawić cos w tym css z logowania i rejestracji zeby tak nie latal przy wpisywaniu danychss
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

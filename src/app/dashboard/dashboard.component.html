@@ -21,8 +21,8 @@
               <i class="now-ui-icons loader_gear"></i>
             </button>
             <div ngbDropdownMenu class="dropdown-menu-right">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#" >Download XML</a>
+              <a class="dropdown-item" href="#" >Download JSON</a>
               <a class="dropdown-item" href="#">Something else here</a>
               <a class="dropdown-item text-danger" href="#">Remove Data</a>
             </div>
@@ -41,9 +41,12 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="stats">
-            <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-          </div>
+          <div class="stats"><button>
+            <i class="now-ui-icons arrows-1_refresh-69" (click)="downloadXML()"></i> Just Updated
+          </button></div>
+          <button
+            class=" btn btn-fill btn-info"
+          type="button" (click)="downloadJSON()">Get JSON</button>
         </div>
       </div>
     </div>
