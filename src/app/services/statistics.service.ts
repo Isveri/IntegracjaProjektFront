@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Resource} from "@angular/compiler-cli/src/ngtsc/metadata";
 import {Statistics} from "../models/Statistics";
+import {Region} from "../models/Region";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ export class StatisticsService {
   getAllStats():Observable<Statistics[]>{
 
     return this.http.get<Statistics[]>(this.baseURL+'/all');
+  }
+
+  getRegionStats():Observable<Region>{
+    return this.http.get<any>(this.baseURL+'/regions')
   }
 
 }

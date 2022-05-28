@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import {StatisticsService} from "../services/statistics.service";
 import {AlertService} from "../services/alert.service";
+import {Statistics} from "../models/Statistics";
+import {Region} from "../models/Region";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,7 @@ export class DashboardComponent implements OnInit {
   public gradientStroke;
   public chartColor;
   public canvas : any;
+  public regions:Region[];
   public ctx;
   public gradientFill;
   public lineBigDashboardChartData:Array<any>;
@@ -62,6 +65,7 @@ export class DashboardComponent implements OnInit {
   constructor(private statisticsService:StatisticsService,private alertService:AlertService) { }
 
   ngOnInit() {
+    this.loadData();
     this.chartColor = "#FFFFFF";
     this.canvas = document.getElementById("bigDashboardChart");
     this.ctx = this.canvas.getContext("2d");
@@ -74,20 +78,6 @@ export class DashboardComponent implements OnInit {
     this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     this.gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
 
-    this.lineBigDashboardChartData = [
-        {
-          label: "Data",
-
-          pointBorderWidth: 1,
-          pointHoverRadius: 7,
-          pointHoverBorderWidth: 2,
-          pointRadius: 5,
-          fill: true,
-
-          borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
-        }
-      ];
       this.lineBigDashboardChartColors = [
        {
          backgroundColor: this.gradientFill,
@@ -98,7 +88,21 @@ export class DashboardComponent implements OnInit {
          pointHoverBorderColor: this.chartColor,
        }
      ];
-    this.lineBigDashboardChartLabels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    this.lineBigDashboardChartData = [
+      {
+        label: "Data",
+
+        pointBorderWidth: 1,
+        pointHoverRadius: 7,
+        pointHoverBorderWidth: 2,
+        pointRadius: 5,
+        fill: true,
+
+        borderWidth: 2,
+        data: [1,2,3,4,5]
+      }
+    ];
+
     this.lineBigDashboardChartOptions = {
 
           layout: {
@@ -414,5 +418,41 @@ export class DashboardComponent implements OnInit {
 
     this.lineChartGradientsNumbersType = 'bar';
   }
+  loadData() {
+    this.statisticsService.getRegionStats().subscribe((data:any)=>{
+      this.regions=data;
+      this.lineBigDashboardChartLabels = this.setLabels();
+      this.lineBigDashboardChartData = [
+        {
+          label: "Data",
 
+          pointBorderWidth: 1,
+          pointHoverRadius: 7,
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          fill: true,
+
+          borderWidth: 2,
+          data: this.setData()
+        }
+      ];
+    })}
+
+  setLabels():String[] {
+    var labels: String[] = [];
+    var counter = 0;
+    for (let i of this.regions) {
+      labels[counter]=i.name;
+      counter++}
+      return labels
+  }
+
+  setData():number[]{
+    var data:number[] = [];
+    var counter = 0;
+    for (let i of this.regions) {
+      data[counter]=i.huntedAnimals;
+      counter++}
+    return data
+  }
 }
