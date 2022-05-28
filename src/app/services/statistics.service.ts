@@ -36,4 +36,8 @@ export class StatisticsService {
     return this.http.get<any>(this.baseURL+'/regions')
   }
 
+  getStatsForYear(year:number){
+    return this.http.get<any>(this.baseURL+'/stats/'+year)
+  }
+
 }

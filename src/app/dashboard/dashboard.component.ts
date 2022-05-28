@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   public chartColor;
   public canvas : any;
   public regions:Region[];
+  public statsForYear: Statistics[];
   public ctx;
   public gradientFill;
   public lineBigDashboardChartData:Array<any>;
@@ -66,6 +67,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    // this.loadDataForStats()
     this.chartColor = "#FFFFFF";
     this.canvas = document.getElementById("bigDashboardChart");
     this.ctx = this.canvas.getContext("2d");
@@ -277,7 +279,7 @@ export class DashboardComponent implements OnInit {
 
     this.lineChartData = [
         {
-          label: "Active Users",
+          label: "Animals Hunted",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 1,
@@ -331,7 +333,6 @@ export class DashboardComponent implements OnInit {
          backgroundColor: this.gradientFill
        }
      ];
-    this.lineChartWithNumbersAndGridLabels = ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"];
     this.lineChartWithNumbersAndGridOptions = this.gradientChartOptionsConfigurationWithNumbersAndGrid;
 
     this.lineChartWithNumbersAndGridType = 'line';
@@ -436,7 +437,47 @@ export class DashboardComponent implements OnInit {
           data: this.setData()
         }
       ];
-    })}
+
+      /**
+       * 2 wykres 1 od prawej
+       */
+      this.lineChartData = [
+        {
+          label: "Animals Hunted",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          borderWidth: 2,
+          data: this.setDataWithoutAtAll()
+        }
+      ];
+      this.lineChartLabels = this.setLabelsWithoutAtAll()
+      this.loadDataForStats()
+    })
+  }
+
+  loadDataForStats(){
+    this.statisticsService.getStatsForYear(2018).subscribe((data:any)=>{
+      this.statsForYear = data;
+
+      this.lineChartWithNumbersAndGridLabels = this.setLabelForYear()
+      this.lineChartWithNumbersAndGridData = [
+        {
+          label: "Sale Stats",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          borderWidth: 2,
+          data: this.setDataForYear()
+        }
+      ];
+
+    })
+  }
 
   setLabels():String[] {
     var labels: String[] = [];
@@ -455,4 +496,45 @@ export class DashboardComponent implements OnInit {
       counter++}
     return data
   }
+
+  setDataWithoutAtAll():number[]{
+    var data:number[] = [];
+    var counter = 0;
+    for (let i of this.regions) {
+      data[counter]=i.huntedAnimals;
+      counter++}
+    delete data[0]
+    return data
+  }
+
+  setLabelsWithoutAtAll():String[]{
+
+    var labels: String[] = [];
+    var counter = 0;
+    for (let i of this.regions) {
+      labels[counter]=i.name;
+      counter++}
+    delete labels[0]
+    return labels
+  }
+
+  setDataForYear():number[]{
+    var data:number[] = [];
+    var counter = 0;
+    for (let i of this.statsForYear) {
+      data[counter]=i.weight;
+      counter++}
+    delete data[0];
+    return data
+  }
+  setLabelForYear():String[]{
+    var labels: String[] = [];
+    var counter = 0;
+    for (let i of this.statsForYear) {
+      labels[counter]=i.region.name;
+      counter++}
+    delete labels[0]
+    return labels
+  }
+
 }
