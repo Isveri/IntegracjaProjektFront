@@ -10,6 +10,7 @@ import {RegisterComponent} from "./register/register.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {LoginComponent} from "./login/login.component";
 import {AlertComponent} from "./alert/alert.component";
+import {RawDataComponent} from "./raw-data/raw-data.component";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {AlertComponent} from "./alert/alert.component";
     RegisterComponent,
     LoginComponent,
     AlertComponent,
+    RawDataComponent,
   ],
   exports: [
     FooterComponent,

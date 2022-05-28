@@ -39,33 +39,6 @@ const routes: Routes =[
     redirectTo: 'dashboard'
   }
   ];
-//   {
-//     path: '',
-//     component: AdminLayoutComponent,
-//     canActivate: [AuthGuard],
-//     children: [
-//       {
-//         path: '',
-//         redirectTo: 'dashboard',
-//         pathMatch: 'full'
-//       },
-//       {
-//         path: 'dashboard',
-//         loadChildren: () => import ('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-//       },
-//     ]
-//   },
-//   {
-//     path: '',
-//     component: AuthLayoutComponent,
-//     children: [
-//       {
-//         path: 'login',
-//         loadChildren: () => import ('./layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
-//       }
-//     ]
-//   }
-// ];
 
 @NgModule({
   imports: [
