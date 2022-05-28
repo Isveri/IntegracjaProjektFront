@@ -476,6 +476,20 @@ export class DashboardComponent implements OnInit {
         }
       ];
 
+      this.lineChartGradientsNumbersLabels = this.setLabelForYear()
+      this.lineChartGradientsNumbersData = [
+        {
+          label: "Sold for",
+          pointBorderWidth: 2,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4,
+          fill: true,
+          borderWidth: 1,
+          data: this.getPricesForYear()
+        }
+      ];
+
     })
   }
 
@@ -535,6 +549,15 @@ export class DashboardComponent implements OnInit {
       counter++}
     delete labels[0]
     return labels
+  }
+  getPricesForYear():number[]{
+    var data:number[] = [];
+    var counter = 0;
+    for (let i of this.statsForYear) {
+      data[counter]=i.price;
+      counter++}
+    delete data[0];
+    return data
   }
 
 }
