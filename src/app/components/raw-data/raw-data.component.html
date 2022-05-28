@@ -1,33 +1,64 @@
-<div class=" content">
-  <div class=" row">
-    <div class=" col-12">
-      <app-alert></app-alert>
-      <div class=" card card-chart">
-        <table class="table">
-          <button
-            class=" btn btn-fill btn-info"
-            type="button" (click)="downloadJSON()">Download data as JSON file</button>
-          <button
-            class=" btn btn-fill btn-info"
-            type="button" (click)="downloadXML()">Download data as XML file</button>
-          <thead>
-          <tr>
-            <th class="text-center">#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th class="text-center">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let entry of [10]; let i=index">
-            <td class="text-center">{{i+1}}</td>
-<!--            <td>{{entry.name}}</td>-->
-<!--            <td>{{entry.description}}</td>-->
-            <td class="td-actions text-center">
-
-          </tr>
-          </tbody>
-        </table>
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Data from 2009 to 2021</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <button class=" btn btn-sm btn-info" type="button" (click)="downloadJSON()">Download data as JSON file
+            </button>
+            <button class=" btn btn-sm  btn-info" type="button" (click)="downloadXML()">Download data as XML file
+            </button>
+            <table class="table">
+              <thead class=" text-primary">
+              <th>
+                Region
+              </th>
+              <th>
+                Year
+              </th>
+              <th>
+                Animal
+              </th>
+              <th>
+                Hunted Animals
+              </th>
+              <th>
+                Weight(tons)
+              </th>
+              <th class="text-right">
+                Price(k zl)
+              </th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let stat of statistics">
+                <td>
+                  {{stat.region?.name}}
+                </td>
+                <td>
+                  {{stat.year}}
+                </td>
+                <td>
+                  {{stat.type}}
+                </td>
+                <td>
+                  {{stat.region.huntedAnimals}}
+                </td>
+                <td>
+                  {{stat.weight}}
+                </td>
+                <td class="text-right">
+                  {{stat.price}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

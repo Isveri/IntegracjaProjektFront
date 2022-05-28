@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertService} from '../../services/alert.service';
 import {StatisticsService} from "../../services/statistics.service";
+import {Statistics} from "../../models/Statistics";
 
 
 @Component({
@@ -10,6 +11,7 @@ import {StatisticsService} from "../../services/statistics.service";
 })
 export class RawDataComponent implements OnInit {
 
+  statistics:Statistics[];
 
   constructor(private alertService: AlertService, private statisticsService:StatisticsService) {
   }
@@ -20,7 +22,9 @@ export class RawDataComponent implements OnInit {
 
 
   loadData() {
-
+    this.statisticsService.getAllStats().subscribe((data:any)=>{
+      this.statistics=data;
+    })
   }
   downloadXML(){
     this.statisticsService.downloadXMLFile().subscribe( (response: any) =>{

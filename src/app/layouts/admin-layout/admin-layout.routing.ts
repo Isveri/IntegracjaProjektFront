@@ -10,6 +10,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'raw-data', component: RawDataComponent },
+    { path: 'raw-data', component: RawDataComponent,canActivate: [AuthGuard] },
 
 ];
