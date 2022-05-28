@@ -416,13 +416,35 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadXML(){
-    this.statisticsService.downloadXMLFile().subscribe(()=>{
+    this.statisticsService.downloadXMLFile().subscribe( (response: any) =>{
+      let filename="data.xml"
+      let dataType = response.type;
+      let binaryData = [];
+      binaryData.push(response);
+      let downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+      if (filename)
+        downloadLink.setAttribute('download', filename);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
       this.alertService.success("Ur file is downloading")
     },error => this.alertService.error("Error while downloading file"));
   }
   downloadJSON(){
-    this.statisticsService.downloadJsonFile().subscribe((resultBlob: Blob)=>{
+    this.statisticsService.downloadJsonFile().subscribe((response: any) =>{
+      let filename="data.json"
+      let dataType = response.type;
+      let binaryData = [];
+      binaryData.push(response);
+      let downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+      if (filename)
+        downloadLink.setAttribute('download', filename);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
       this.alertService.success("Ur file is downloading")
+      console.log("json")
+
     },error => this.alertService.error("Error while downloading file"));
   }
 }
