@@ -11,8 +11,8 @@ import {Statistics} from "../../models/Statistics";
 })
 export class RawDataComponent implements OnInit {
 
-  statistics:Statistics[];
-
+  statistics:Statistics[] = [];
+  isRemoved = false;
   constructor(private alertService: AlertService, private statisticsService:StatisticsService) {
   }
 
@@ -24,6 +24,7 @@ export class RawDataComponent implements OnInit {
   loadData() {
     this.statisticsService.getAllStats().subscribe((data:any)=>{
       this.statistics=data;
+      console.log(this.statistics.length)
     })
   }
   downloadXML(){
@@ -57,5 +58,19 @@ export class RawDataComponent implements OnInit {
       console.log("json")
 
     },error => this.alertService.error("Error while downloading file"));
+  }
+
+  testIsolation(){
+  this.isRemoved = true;
+  this.statisticsService.reloadData().subscribe((data:any)=>{
+    this.statistics=data;
+  })
+  }
+
+  bootData(){
+  this.isRemoved = false;
+  this.statisticsService.bootData().subscribe((data:any)=>{
+    this.statistics=data;
+  })
   }
 }

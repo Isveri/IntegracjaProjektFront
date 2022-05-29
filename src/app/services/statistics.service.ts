@@ -40,4 +40,11 @@ export class StatisticsService {
     return this.http.get<any>(this.baseURL+'/stats/'+year)
   }
 
+  reloadData(){
+    return this.http.get(this.baseURL+'/stats/reloadData')
+  }
+  bootData(){
+    return this.http.get(this.baseURL+'/stats/boot')
+  }
+
 }
