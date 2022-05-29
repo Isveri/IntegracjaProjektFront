@@ -14,7 +14,7 @@
             <button class=" btn btn-sm  btn-info" type="button" [disabled]="isRemoved || statistics.length==0" (click)="downloadXML()">Download data as XML file
             </button>
           <button class=" btn btn-sm  btn-info" type="button" [disabled]="!isRemoved && statistics.length!=0" (click)="bootData()">Load Data</button>
-            <button class=" btn btn-sm  btn-info" type="button" [disabled]="isRemoved || statistics.length==0" (click)="testIsolation()">Test isolation by removing data</button>
+            <button class=" btn btn-sm  btn-info" type="button" [disabled]="isRemoved || statistics.length==0" (click)="testIsolation()">Remove data</button>
             <table class="table">
               <thead class=" text-primary">
               <th>
