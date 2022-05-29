@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   public lineBigDashboardChartType;
   public gradientStroke;
   public chartColor;
+  public year:number = 2018;
   public canvas : any;
   public regions:Region[];
   public statsForYear: Statistics[];
@@ -459,7 +460,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadDataForStats(){
-    this.statisticsService.getStatsForYear(2018).subscribe((data:any)=>{
+    this.statisticsService.getStatsForYear(this.year).subscribe((data:any)=>{
       this.statsForYear = data;
 
       this.lineChartWithNumbersAndGridLabels = this.setLabelForYear()
@@ -558,6 +559,11 @@ export class DashboardComponent implements OnInit {
       counter++}
     delete data[0];
     return data
+  }
+
+  setYear(i:number){
+    this.year = i;
+    this.loadDataForStats();
   }
 
 }
